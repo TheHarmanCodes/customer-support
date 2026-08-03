@@ -1,19 +1,19 @@
+"use client"
+import { api } from "@workspace/backend/_generated/api"
 import { Button } from "@workspace/ui/components/button"
+import { useMutation, useQuery } from "convex/react"
 
 export default function Page() {
+  const users = useQuery(api.users.getMany)
+  const addUser = useMutation(api.users.add)
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Hello app/web</h1>
-          <p>You may now add components and start building.</p>
-          <p>Hello to Next, I will built a customer support app</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
+    <div className="flex min-h-svh flex-col items-center justify-center">
+      <p>apps/web</p>
+      <Button onClick={() => addUser()} className="cursor-pointer">
+        Add
+      </Button>
+      <div className="mx-auto w-full max-w-sm">{JSON.stringify(users)}</div>
     </div>
   )
 }
