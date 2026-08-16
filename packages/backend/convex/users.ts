@@ -13,12 +13,18 @@ export const add = mutation({
   handler: async (ctx) => {
     //server side route protection)
     const identity = await ctx.auth.getUserIdentity()
-
     if (identity === null) {
       throw new Error("Not authenticated")
     }
+
+    const organization = identity.o as { id?: string } | undefined
+    const orgId = (identity.org_id ?? organization?.id) as string | undefined
+    if (!orgId) {
+      throw new Error("Missing Organization")
+    }
+
     const userId = await ctx.db.insert("users", {
-      name: "james",
+      name: "jane",
     })
     return userId
   },
