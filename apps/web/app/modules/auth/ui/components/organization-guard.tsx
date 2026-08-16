@@ -10,7 +10,16 @@ export const OrganizationGuard = ({
 }: {
   children: React.ReactNode
 }) => {
-  const { organization } = useOrganization()
+  const { organization, isLoaded } = useOrganization()
+
+  if (!isLoaded) {
+    return (
+      <div className="flex h-full min-h-screen w-full items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
   if (!organization) {
     return (
       <AuthLayout>
@@ -18,5 +27,6 @@ export const OrganizationGuard = ({
       </AuthLayout>
     )
   }
+
   return <>{children}</>
 }
