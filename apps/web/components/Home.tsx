@@ -23,8 +23,6 @@ export default function Home() {
           <Button className="cursor-pointer" onClick={() => addUser()}>
             Add
           </Button>
-
-          <div className="mx-auto w-full max-w-sm">{JSON.stringify(users)}</div>
         </div>
       </Authenticated>
 
