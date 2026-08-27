@@ -16,7 +16,7 @@ export default function Page() {
       <Button onClick={() => startCall()}>Start Call</Button>
 
       <Button
-        onClick={() => endCall}
+        onClick={() => endCall()}
         variant="destructive"
         className="mt-4 mb-4"
       >

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import Vapi from "@vapi-ai/web"
-import { Preahvihear } from "next/font/google"
 
 interface TranscriptMessage {
   role: "user" | "assistant"
@@ -46,7 +45,7 @@ export const useVapi = () => {
 
     // Error handling
     vapiInstance.on("error", (error) => {
-      console.error("Voice widget error:", error)
+      console.log("Voice widget error:", error)
       setIsConnecting(false)
     })
 
