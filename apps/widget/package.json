@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@vapi-ai/web": "^2.7.0",
     "@workspace/backend": "workspace:*",
     "@workspace/ui": "workspace:*",
     "convex": "^1.43.0",
@@ -22,6 +23,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@vapi-ai/web": "2.7.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
