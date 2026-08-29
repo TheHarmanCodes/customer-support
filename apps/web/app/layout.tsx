@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google"
-
 import "@workspace/ui/globals.css"
 import { ClerkProvider } from "@clerk/nextjs"
 import { ThemeProvider } from "@/components/theme-provider"
+import { TooltipProvider } from "@workspace/ui/components/tooltip"
 import { cn } from "@workspace/ui/lib/utils"
 import React from "react"
 
@@ -31,7 +31,9 @@ export default function RootLayout({
     >
       <body>
         <ClerkProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <TooltipProvider> {children} </TooltipProvider>
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
