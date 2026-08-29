@@ -13,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SIDEBAR_COOKIE_NAME
 } from "@workspace/ui/components/sidebar"
 import {
   CreditCardIcon,
@@ -164,7 +165,6 @@ export const DashbordSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarRail />
       </SidebarContent>
 
       <SidebarFooter>
@@ -189,6 +189,7 @@ export const DashbordSidebar = () => {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }
