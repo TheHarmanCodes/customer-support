@@ -13,7 +13,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  SIDEBAR_COOKIE_NAME
 } from "@workspace/ui/components/sidebar"
 import {
   CreditCardIcon,
@@ -25,6 +24,8 @@ import {
 } from "lucide-react"
 import React from "react"
 import { usePathname } from "next/navigation"
+import { cn } from "@workspace/ui/lib/utils"
+import Link from "next/link"
 
 const customerSupportItems = [
   {
@@ -66,10 +67,10 @@ const accountItems = [
 ]
 
 export const DashbordSidebar = () => {
-  const pathname = usePathname();
+  const pathname = usePathname()
   const isActive = (url: string) => {
-    if(url === '/') return pathname === '/'
-    return pathname.startsWith(url) && pathname !== '/';
+    if (url === "/") return pathname === "/"
+    return pathname.startsWith(url) && pathname !== "/"
   }
 
   return (
@@ -113,7 +114,11 @@ export const DashbordSidebar = () => {
                   <SidebarMenuButton
                     tooltip={item.title}
                     isActive={isActive(item.url)}
-                    render={<a href={item.url} />}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-linear-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
+                    render={<Link href={item.url} />}
                   >
                     <item.icon className="size-4" />
                     <span>{item.title}</span>
@@ -134,7 +139,11 @@ export const DashbordSidebar = () => {
                   <SidebarMenuButton
                     tooltip={item.title}
                     isActive={isActive(item.url)}
-                    render={<a href={item.url} />}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-linear-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
+                    render={<Link href={item.url} />}
                   >
                     <item.icon className="size-4" />
                     <span>{item.title}</span>
@@ -155,7 +164,11 @@ export const DashbordSidebar = () => {
                   <SidebarMenuButton
                     tooltip={item.title}
                     isActive={isActive(item.url)}
-                    render={<a href={item.url} />}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-linear-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
+                    render={<Link href={item.url} />}
                   >
                     <item.icon className="size-4" />
                     <span>{item.title}</span>
