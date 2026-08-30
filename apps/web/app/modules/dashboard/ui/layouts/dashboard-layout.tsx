@@ -1,6 +1,9 @@
 import { AuthGuard } from "@/app/modules/auth/ui/components/auth-guard"
 import { OrganizationGuard } from "@/app/modules/auth/ui/components/organization-guard"
-import { SidebarProvider } from "@workspace/ui/components/sidebar"
+import {
+  SIDEBAR_COOKIE_NAME,
+  SidebarProvider,
+} from "@workspace/ui/components/sidebar"
 import { cookies } from "next/headers"
 import React from "react"
 import { DashbordSidebar } from "../components/dashboard-sidebar"
