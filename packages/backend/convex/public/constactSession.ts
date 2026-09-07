@@ -1,13 +1,14 @@
-import { defineSchema, defineTable } from "convex/server"
 import { v } from "convex/values"
+import { mutation } from "../_generated/server"
 
-export default defineSchema({
-  // defining contactSession table
-  contactSession: defineTable({
+// 24 hours in milliseconds
+const SESSION_DURATION_MS = 24 * 60 * 60 * 1000
+
+export const create = mutation({
+  args: {
     name: v.string(),
     email: v.string(),
     organizationId: v.string(),
-    expiresAt: v.number(),
     metadata: v.optional(
       v.object({
         userAgent: v.optional(v.string()),
@@ -24,11 +25,22 @@ export default defineSchema({
         currentUrl: v.optional(v.string()),
       })
     ),
-  })
-    .index("by_organizationId", ["organizationId"])
-    .index("by_expires_at", ["expiresAt"]),
+  },
+  handler: async (ctx, args) => {
+    // Sanitize inputs
+    const sanitizedName = args.name.trim()
+    const sanitizedEmail = args.name.trim()
 
-  users: defineTable({
-    name: v.string(),
-  }),
+    const now = Date.now()
+    const expiresAt = now + SESSION_DURATION_MS
+
+    const contactSessionId = await ctx.db.insert("contactSession", {
+      name: sanitizedName,
+      email: sanitizedEmail,
+      organizationId: args.organizationId,
+      metadata: args.metadata,
+      expiresAt,
+    })
+    return contactSessionId
+  },
 })
