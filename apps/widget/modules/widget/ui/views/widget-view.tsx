@@ -3,6 +3,8 @@ import React from "react"
 import { useAtomValue } from "jotai"
 import { WidgetAuthScreen } from "@/modules/widget/ui/screens/widget-auth-screen"
 import { screenAtom } from "@/modules/widget/atoms/widget-atoms"
+import { WidgetErrorScreen } from "@/modules/widget/ui/screens/widget-error-screen"
+import { WidgetLoadingScreen } from "../screens/widget-loading-screen"
 
 interface Props {
   organizationId: string
@@ -17,8 +19,8 @@ export const WidgetView = ({ organizationId }: Props) => {
   // new value is added to `WIDGET_SCREEN`; placeholder entries mark routes
   // whose UI has not been implemented yet.
   const screenComponents = {
-    error: <p>TODO: Error</p>,
-    loading: <p>TODO: Loading</p>,
+    error: <WidgetErrorScreen />,
+    loading: <WidgetLoadingScreen organizationId={organizationId} />,
     selection: <p>TODO: selection</p>,
     voice: <p>TODO: Voice</p>,
     auth: <WidgetAuthScreen />,

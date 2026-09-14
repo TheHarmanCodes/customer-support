@@ -14,6 +14,11 @@ import { Button } from "@workspace/ui/components/button"
 import { useMutation } from "convex/react"
 import { api } from "@workspace/backend/_generated/api"
 import { Doc } from "@workspace/backend/_generated/dataModel"
+import { useAtomValue, useSetAtom } from "jotai"
+import {
+  contactSessionIdAtomFamily,
+  organizationIdAtom,
+} from "../../atoms/widget-atoms"
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -24,6 +29,11 @@ const formSchema = z.object({
 const organizationId = "123"
 
 export const WidgetAuthScreen = () => {
+  const organizationId = useAtomValue(organizationIdAtom)
+  const setContactSessionId = useSetAtom(
+    contactSessionIdAtomFamily(organizationId || "")
+  )
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,7 +43,7 @@ export const WidgetAuthScreen = () => {
   })
 
   // https://docs.convex.dev/api/modules/react#usemutation
-  const createContactSession = useMutation(api.public.constactSession.create)
+  const createContactSession = useMutation(api.public.contactSession.create)
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (!organizationId) {
@@ -62,7 +72,7 @@ export const WidgetAuthScreen = () => {
         metadata,
       })
 
-      console.log(contactSessionId)
+      setContactSessionId(contactSessionId)
     } catch (err) {
       console.error("Failed to create contact session: ", err)
       // will show a decent msg to user using UI
