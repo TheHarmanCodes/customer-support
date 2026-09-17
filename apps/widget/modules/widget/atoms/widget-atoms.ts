@@ -19,7 +19,8 @@ export const contactSessionIdAtomFamily = atomFamily((organizationId: string) =>
     null
   )
 )
-
 export const errorMessageAtom = atom<string | null>(null)
-
 export const loadingMessageAtom = atom<string | null>(null)
+
+// Holds the active conversation ID for the current chat session
+export const conversationIdAtom = atom<Id<"conversations"> | null>(null)
