@@ -3,7 +3,7 @@ import { mutation, query } from "../_generated/server"
 
 /**
  * Creates a new conversation for a contact session within an organization.
- * 
+ *
  * Flow:
  * 1. Validates that the provided `contactSessionId` exists and has not expired.
  * 2. Initializes a conversation record in the database with "unresolved" status.
@@ -30,7 +30,7 @@ export const create = mutation({
     // Persist conversation tied to the session and organization
     const conversationId = await ctx.db.insert("conversations", {
       threadId,
-      organizationId: args.organizationId,
+      organizationId: session.organizationId,
       contactSessionId: session._id,
       status: "unresolved",
     })
@@ -40,7 +40,7 @@ export const create = mutation({
 
 /**
  * Fetches an existing conversation after verifying session authorization.
- * 
+ *
  * Flow:
  * 1. Checks that the requesting contact session is valid and not expired.
  * 2. Retrieves the conversation document by `conversationId`.
@@ -64,6 +64,16 @@ export const getOne = query({
     const conversation = await ctx.db.get(args.conversationId)
     if (!conversation) {
       return null
+    }
+    /**
+     * A caller with a valid session and another conversation ID can read that conversation.
+     * so we have to Authorize the conversation against the contact session.
+     */
+    if (conversation.contactSessionId !== session._id) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Invalid session",
+      })
     }
 
     return {
