@@ -25,9 +25,6 @@ const formSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
 })
 
-// temp test orgId before adding state management
-const organizationId = "123"
-
 export const WidgetAuthScreen = () => {
   const organizationId = useAtomValue(organizationIdAtom)
   const setContactSessionId = useSetAtom(
